@@ -1,0 +1,38 @@
+
+/*--------------------------------------------------------------
+# style Labeled List Frontend
+# enqueued in frontend only
+--------------------------------------------------------------*/
+
+.wp-block-lali-labeled-list {
+
+    text-align: left;
+    position: relative;
+
+    &-item {
+        margin: 1em 0 0 0;
+        position: relative;
+
+        &-inner {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+
+            .components-base-control__field {
+                margin: 0;
+            }
+
+            .label {
+                // flex-basis: ... set by js;
+                flex-grow: 0;
+                flex-shrink: 0;
+                margin: 0em 1em 0em 0em;
+            }
+            .value {
+                flex-grow: 1;
+            }
+        }
+
+    }
+
+}

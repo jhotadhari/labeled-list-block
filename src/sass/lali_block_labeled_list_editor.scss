@@ -1,0 +1,58 @@
+
+@import 'lali_block_labeled_list_frontend';
+
+.wp-block-lali-labeled-list {
+
+    &-item {
+
+        .controls {
+            position: absolute;
+            display: none;
+            right: 0;
+            top: 0;
+            .components-button {
+                padding: 8px;
+            }
+        }
+
+        &:hover .controls {
+            display: flex;
+        }
+
+    }
+
+}
+
+.components-base-control.lali-columns-field .components-base-control__field {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    & > .components-base-control__label {
+        flex-basis: 100%;
+        flex-shrink: 0;
+        flex-grow: 1;
+    }
+
+    & > .components-base-control {
+        flex-shrink: 1;
+        flex-grow: 1;
+        flex-basis: 50%;
+        margin-right: 7px;
+
+        &.lali-columns-field-no-margin {
+            margin-right: 0;
+        }
+
+        &.lali-columns-field-30 {
+            flex-basis: 30px;
+            flex-shrink: 0;
+        }
+
+        &.lali-columns-field-full {
+            flex-basis: 100%;
+            flex-shrink: 0;
+        }
+    }
+
+}
