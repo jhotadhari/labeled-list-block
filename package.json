@@ -16,10 +16,10 @@
   "authorUri": "https://waterproof-webdesign.info",
   "license": "GNU General Public License v2 or later",
   "licenseUri": "http://www.gnu.org/licenses/gpl-2.0.html",
-  "tags": "",
+  "tags": "gutenberg,list,block",
   "donateLink": "https://waterproof-webdesign.info/donate",
-  "wpVersionTested": "4.9.8",
-  "wpRequiresAtLeast": "4.9.8",
+  "wpVersionTested": "5.0",
+  "wpRequiresAtLeast": "5.0",
   "phpRequiresAtLeast": "5.6",
   "devDependencies": {
     "@babel/core": "^7.1.2",

@@ -23,7 +23,7 @@ const transform = [
 			'@babel/preset-react',
 		],
 	}],
-	[ 'jstify' ],
+	// [ 'jstify' ],
 ];
 
 module.exports = {
