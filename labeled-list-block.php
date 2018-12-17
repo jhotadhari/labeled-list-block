@@ -3,7 +3,7 @@
 Plugin Name: Labeled List Block
 Plugin URI: https://waterproof-webdesign.info/wppr_project/labeled-list-block
 Description: Gutenberg List Block with uniformly wide label column
-Version: 0.1.1
+Version: 0.1.2
 Author: jhotadhari
 Author URI: https://waterproof-webdesign.info
 License: GNU General Public License v2 or later
