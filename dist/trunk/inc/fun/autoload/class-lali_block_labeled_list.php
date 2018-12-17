@@ -51,9 +51,9 @@ class Lali_Block_Labeled_list {
 
 	}
 
-	protected function get_localize_data(){
-		return array();
-	}
+	// protected function get_localize_data(){
+	// 	return array();
+	// }
 
 	// hooked on enqueue_block_assets. So function will run in admin and frontend.
 	// But we will use it only on frontend if the post has this block
@@ -89,8 +89,8 @@ class Lali_Block_Labeled_list {
 			filemtime( Lali_Labeled_list_block::plugin_dir_path() . 'js/' . $handle . '.min.js' )
 		);
 
-		wp_localize_script( $handle, 'laliData', $this->get_localize_data() );
-
+		// wp_localize_script( $handle, 'laliData', $this->get_localize_data() );
+		wp_set_script_translations( $handle, 'lali', Lali_Labeled_list_block::plugin_dir_path() . 'languages' );
 		wp_enqueue_script( $handle );
 
 		wp_enqueue_style(

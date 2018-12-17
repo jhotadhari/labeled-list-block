@@ -20,11 +20,19 @@ module.exports = function(grunt){
 			'_setPaths:dist',					// build tasks
 		]);
 
-		if ( grunt.option('git') != false ) {	// git tasks
-			tasks = tasks.concat([
-				'_dist_git_tasks'
-			]);
-		}
+		// zip
+		tasks = [
+			...tasks,
+			'zip',
+		];
+
+		// git tasks
+		tasks = grunt.option('git') === false ? tasks : [
+			...tasks,
+			...( grunt.option('git:add') !== false  && ['git:add'] ),
+			...( grunt.option('git:commit') !== false  && ['git:commit'] ),
+			...( grunt.option('git:tag') !== false  && ['git:tag'] ),
+		];
 
 		grunt.task.run( tasks );				// run tasks
 

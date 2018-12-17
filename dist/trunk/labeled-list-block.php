@@ -1,18 +1,19 @@
-<?php 
+<?php
 /*
 Plugin Name: Labeled List Block
 Plugin URI: https://waterproof-webdesign.info/wppr_project/labeled-list-block
 Description: Gutenberg List Block with uniformly wide label column
-Version: 0.0.1
+Version: 0.1.0
 Author: jhotadhari
 Author URI: https://waterproof-webdesign.info
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: lali
 Domain Path: /languages
-Tags: 
+Tags: gutenberg,list,block
+GitHub Plugin URI: https://github.com/jhotadhari/labeled-list-block
+Release Asset: true
 */
-
 ?><?php
 
 // If this file is called directly, abort.
@@ -23,7 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
 class Lali_Labeled_list_block {
 
 	protected static $instance = null;
-	const VERSION = '0.0.1';
+	const VERSION = '0.1.0';
 	const DB_VERSION = 0;			// int	increase the number if the database needs an update
 	const PLUGIN_SLUG = 'labeled-list-block';
 	const PLUGIN_NAME = 'Labeled List Block';
@@ -43,7 +44,7 @@ class Lali_Labeled_list_block {
 			*/
 		),
 		'php_version' => '5.6',		// required php version
-		'wp_version' => '4.9.8',			// required wp version
+		'wp_version' => '5.0',			// required wp version
 		'php_ext' => array(
 			/*
 			'xml' => array(
