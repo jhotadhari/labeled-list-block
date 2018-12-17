@@ -29,6 +29,9 @@ Upload and install this Plugin the same way you'd install any other plugin.
 ## Changelog ##
 
 
+0.1.1
+Fixed support for GitHub Updater Plugin with release assets
+
 0.1.0
 Requires WordPress 5.0; Added upport for GitHub Updater Plugin with release assets; See commit msgs;
 
