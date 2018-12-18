@@ -23,7 +23,7 @@ module.exports = function(grunt){
 		// zip
 		tasks = [
 			...tasks,
-			'zip',
+			'compress',
 		];
 
 		// git tasks
