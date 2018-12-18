@@ -15,7 +15,7 @@ Gutenberg List Block with uniformly wide label column.
 
 To install it from this GitHub Repo:
 
-- download the latest release asset from [```Releases```](https://github.com/jhotadhari/labeled-list-block/releases) and unzip it to ```labeled-list-block```.
+- download the latest release asset from [```Releases```](https://github.com/jhotadhari/labeled-list-block/releases).
 - alternatively download the latest distributed version from [```./dist/trunk```](https://github.com/jhotadhari/labeled-list-block/tree/master/dist/trunk) and rename ```trunk``` to ```labeled-list-block```
 - upload to your plugins directory and activate
 

@@ -29,6 +29,11 @@ Upload and install this Plugin the same way you'd install any other plugin.
 ## Changelog ##
 
 
+0.1.3
+Fixed support for GitHub Updater Plugin with release assets
+
+Changed structure of release asset zip. Unzips to a containing folder with the appropriate plugin slug and all plugin files. See https://github.com/afragen/github-updater/issues/716
+
 0.1.2
 Fixed support for GitHub Updater Plugin with release assets
 
