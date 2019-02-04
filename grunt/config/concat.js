@@ -48,7 +48,7 @@ const configPlugin_main_file = {
 			'Text Domain: <%= global["pkg"].textDomain %>',
 			'Domain Path: <%= global["pkg"].domainPath %>',
 			'Tags: <%= global["pkg"].tags %>',
-			'GitHub Plugin URI: <%= global["pkg"].GitHubPluginURI %>',
+			'GitHub Plugin URI: <%= global["pkg"].gitHubPluginURI %>',
 			'Release Asset: true',
 			'*/',
 			'?>',

@@ -34,6 +34,12 @@ module.exports = function(grunt){
 			...( grunt.option('git:tag') !== false  && ['git:tag'] ),
 		];
 
+		// noticeReady
+		tasks = [
+			...tasks,
+			'_noticeReady:dist',
+		];
+
 		grunt.task.run( tasks );				// run tasks
 
 	});

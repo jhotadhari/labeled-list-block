@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const playSound = require('./grunt/playSound');
 
 module.exports = function(grunt){
 	// load plugins
@@ -11,7 +12,10 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('gruntify-eslint');
 	// load config
 	initConfigs(grunt, 'grunt/config');
+	grunt.task.run('notify_hooks');
 	onWatchUpdateConfig(grunt);
+	// setupFailHooks
+	setupFailHooks(grunt);
 };
 
 function initConfigs(grunt, folderPath) {
@@ -32,10 +36,20 @@ function initConfigs(grunt, folderPath) {
 			]
 		},
 		pkg: "<%= global['pkg'] %>",
-		wp_installs: grunt.file.readJSON("wp_installs.json"),
 		dest_path:  "<%= global['dest_path'] %>",
 		commit_msg: "<%= global['commit_msg'] %>",
 		changelog: "<%= global['changelog'] %>",
+
+		notify_hooks: {
+			options: {
+				enabled: true,
+				max_jshint_notifications: 5, 	// maximum number of notifications from jshint output
+				// title: "Project Name", 		// defaults to the name in package.json, or will use project directory's name
+				success: false, 				// whether successful grunt executions should be notified automatically
+				duration: 0, 					// the duration of notification in seconds, for `notify-send only
+			}
+		},
+
 	};
 
 	global['pkg'] = grunt.file.readJSON("package.json");
@@ -69,22 +83,23 @@ function onWatchUpdateConfig( grunt ) {
 }
 
 function updateJsConfig( grunt, changedFiles ) {
-	let changed = Object.keys( grunt.util._.omit( changedFiles, function(value, key, object) {
-		return path.extname(key) !== '.js'
-	}));
+	const changed = Object.keys( grunt.util._.omit( changedFiles, ( value, key, object ) => ! ['.js','.jsx'].includes( path.extname( key ) ) ) );
 
 	// update eslint config
-	grunt.config('eslint.commonJS.src', changed);
+	grunt.config('eslint.commonJS.src', changed );
 
 	// update browserify config
-	let config = grunt.config('browserify.debug.files' )[0];
+	const config = grunt.config('browserify.debug.files' )[0];
 	config.src = [];
 	grunt.util._.each( changed, function( filepath ){
 		let filepathCwd = filepath.replace( config.cwd + '/', '' );
 		if ( -1 !== filepathCwd.indexOf('/') ) {
-			config.src.push( filepathCwd.substring( 0, filepathCwd.indexOf('/') ) + '.js' );
+			const rootFileMayBe = filepathCwd.substring( 0, filepathCwd.indexOf('/') ) + '.js';
+			config.src.push( rootFileMayBe );
+			grunt.file.expand( { cwd: 'src/commonJS' }, [rootFileMayBe] ).length > 0 ? grunt.option( 'silent', false ) : grunt.option( 'silent', true );
 		} else {
 			config.src.push( filepathCwd );
+			grunt.option( 'silent', false );
 		}
 	});
 	grunt.config('browserify.debug.files', [config]);
@@ -95,4 +110,15 @@ function updateScssConfig( grunt, changedFiles ) {
 	// 	return path.extname(key) !== '.scss'
 	// }));
 	// ... waiting for sunshine
+}
+
+function setupFailHooks( grunt ) {
+	grunt.util.hooker.hook(grunt, 'warn', () => playSound( grunt, 'fail' ) );
+	grunt.util.hooker.hook(grunt.fail, 'warn', () => playSound( grunt, 'fail' ));
+	// run on error
+	grunt.util.hooker.hook(grunt.fail, 'error', () => playSound( grunt, 'fail' ));
+	grunt.util.hooker.hook(grunt.log, 'fail', () => playSound( grunt, 'fail' ));
+	grunt.util.hooker.hook(grunt.log, 'error', () => playSound( grunt, 'fail' ));
+	// run on fatal
+	grunt.util.hooker.hook(grunt.fail, 'fatal', () => playSound( grunt, 'fail' ));
 }

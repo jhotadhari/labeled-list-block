@@ -5,6 +5,7 @@ module.exports = function(grunt){
 		grunt.task.run([
 			'_updateChangelog:build',
 			'_setPaths:build',
+			'_noticeReady:build',
 		]);
 
 	});

@@ -103,6 +103,7 @@ class ListComponent extends Component {
 			items,
 			listSettings,
 			setAttributes,
+			deprecated,
 		} = this.props;
 
 		return <>
@@ -129,24 +130,26 @@ class ListComponent extends Component {
 							<div
 								className={ 'label' }
 								style={ this.getLabelStyle() }
+								{ ...( undefined === setAttributes && { dangerouslySetInnerHTML:{ __html: item.label } } ) }
 							>
-								{ undefined === setAttributes
-									? item.label
-									: <RichText
+								{ undefined !== setAttributes &&
+									<RichText
 										value={ item.label }
 										onChange={ ( newVal ) => this.onChangeItem( index, 'label', newVal ) }
+										placeholder={ 'placeholder' }
 									/>
 								}
 							</div>
 
 							<div
 								className={ 'value' }
+								{ ...( undefined === setAttributes && { dangerouslySetInnerHTML:{ __html: item.value } } ) }
 							>
-								{ undefined === setAttributes
-									? item.value
-									: <RichText
+								{ undefined !== setAttributes &&
+									<RichText
 										value={ item.value }
 										onChange={ ( newVal ) => this.onChangeItem( index, 'value', newVal ) }
+										placeholder={ 'placeholder' }
 									/>
 								}
 							</div>

@@ -11,35 +11,32 @@ import {
  */
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
-const { InspectorControls } = wp.editor;
-const {
-    BaseControl,
-    TextControl,
-    SelectControl,
-} = wp.components;
 
 /**
  * Internal dependencies
  */
-import getDefault 		from './lali_block_labeled_list_editor/getDefault';
-import parseSerialized 	from './lali_block_labeled_list_editor/parseSerialized';
-import ListComponent 	from './lali_block_labeled_list_editor/components/ListComponent.jsx';
+import getDefault 			from './lali_block_labeled_list_editor/getDefault';
+import parseSerialized 		from './lali_block_labeled_list_editor/parseSerialized';
+import ListComponent 		from './lali_block_labeled_list_editor/components/ListComponent.jsx';
+import InspectorComponent 	from './lali_block_labeled_list_editor/components/InspectorComponent.jsx';
+
+const blockAttributes = {
+	items: {
+		type: 'array',
+		default: [],
+	},
+	listSettings: {
+		type: 'string',
+		default: JSON.stringify( getDefault( 'listSettings' ) ),
+	},
+};
 
 registerBlockType( 'lali/labeled-list', {
 	title: __( 'Labeled List' ),
 	icon: 'list-view',
 	category: 'common',
 
-    attributes: {
-        items: {
-        	type: 'array',
-        	default: [],
-        },
-        listSettings: {
-        	type: 'string',
-        	default: JSON.stringify( getDefault( 'listSettings' ) ),
-        },
-    },
+    attributes: blockAttributes,
 
     edit( { className, attributes, setAttributes } ) {
 
@@ -56,86 +53,12 @@ registerBlockType( 'lali/labeled-list', {
     	} ).join( ' ' );
 
         return <>
-			<InspectorControls>
-				<BaseControl
-					label={ __( 'Label Base Width', 'lali'  ) }
-					className={ 'lali-columns-field' }
-				>
-					<TextControl
-						value={ get( listSettings, ['labelWidth', 'value'] ) }
-						type={ 'number' }
-						onChange={ ( newVal ) => setAttributes( {
-							listSettings: JSON.stringify( {
-								...listSettings,
-								labelWidth: {
-									...get( listSettings, ['labelWidth'] ),
-									value: newVal,
-								},
-							} ),
-						} ) }
-					/>
 
-					<SelectControl
-						value={ get( listSettings, ['labelWidth', 'unit'] ) }
-						className={ 'lali-columns-field-30 lali-columns-field-no-margin' }
-						options={ [
-							{ label: 'px', value: 'px' },
-							{ label: '%', value: 'percent' },
-						] }
-						onChange={ ( newVal ) => setAttributes( {
-							listSettings: JSON.stringify( {
-								...listSettings,
-								labelWidth: {
-									...get( listSettings, ['labelWidth'] ),
-									unit: newVal,
-								},
-							} ),
-						} ) }
-					/>
-				</BaseControl>
-
-				<SelectControl
-					label={ __( 'List Style', 'lali'  ) }
-					value={ get( listSettings, ['listStyle'] ) }
-					options={ [
-						{ label: 'inherit', value: 'inherit' },
-						{ label: 'none', value: 'none' },
-						{ label: 'disc', value: 'disc' },
-						{ label: 'square', value: 'square' },
-						{ label: 'circle', value: 'circle' },
-						{ label: 'decimal', value: 'decimal' },
-					] }
-					onChange={ ( newVal ) => setAttributes( {
-						listSettings: JSON.stringify( {
-							...listSettings,
-							listStyle: newVal,
-						} ),
-					} ) }
-				/>
-
-				<TextControl
-					label={ __( 'Margin', 'lali'  ) }
-					value={ get( listSettings, ['margin'] ) }
-					onChange={ ( newVal ) => setAttributes( {
-						listSettings: JSON.stringify( {
-							...listSettings,
-							margin: newVal,
-						} ),
-					} ) }
-				/>
-
-				<TextControl
-					label={ __( 'Padding', 'lali'  ) }
-					value={ get( listSettings, ['padding'] ) }
-					onChange={ ( newVal ) => setAttributes( {
-						listSettings: JSON.stringify( {
-							...listSettings,
-							padding: newVal,
-						} ),
-					} ) }
-				/>
-
-			</InspectorControls>
+        	<InspectorComponent
+				items={ items }
+				listSettings={ listSettings }
+				setAttributes={ setAttributes }
+        	/>
 
 			<ListComponent
 				className={ classNameSorted }
@@ -166,6 +89,18 @@ registerBlockType( 'lali/labeled-list', {
 			listSettings={ listSettings }
 		/>;
 
-    }
+    },
+
+
+
+    deprecated: [
+        {
+            attributes: blockAttributes,
+
+            save( { attributes } ) {
+            	return null;
+			}
+        },
+    ],
 
 });
